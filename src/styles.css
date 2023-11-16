@@ -12,9 +12,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  --plyr-video-background: #252525;
 }
 * {
   box-sizing: border-box;
+  max-width: 100% !important;
+  max-height: 100% !important;
 }
 
 .noselect {

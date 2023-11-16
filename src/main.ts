@@ -7,6 +7,10 @@ export function setIdx(idx: any) {
   activeIdx.set(idx)
 }
 
+document.addEventListener("keydown", (e) => {
+  console.log(e.key)
+})
+
 export function getName(name: string) {
   return name.substring(name.lastIndexOf("\\") + 1);
 }
