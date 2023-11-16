@@ -8,13 +8,41 @@ use std::{
 };
 use tauri::http::{header::*, response::Builder as ResponseBuilder, status::StatusCode};
 
+#[tauri::command]
+fn get_media(media: tauri::State<Mutex<Vec<String>>>) -> Result<Vec<String>, String> {
+    let med = media.lock().unwrap();
+    Ok(med.to_owned())
+}
+
+#[tauri::command]
+fn get_active(active: tauri::State<Mutex<u32>>) -> Result<u32, String> {
+    let act = active.lock().unwrap();
+    Ok(act.to_owned())
+}
+
+#[tauri::command]
+fn set_media(set: Vec<String>, media: tauri::State<Mutex<Vec<String>>>) {
+    let mut med = media.lock().unwrap();
+    *med = set;
+}
+
+#[tauri::command]
+fn set_active(set: u32, active: tauri::State<Mutex<u32>>) {
+    let mut act = active.lock().unwrap();
+    *act = set;
+}
+
 fn main() {
     let boundary_id = Arc::new(Mutex::new(0));
 
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
-        .invoke_handler(tauri::generate_handler![])
+        .invoke_handler(tauri::generate_handler![
+            get_media, get_active, set_media, set_active
+        ])
+        .manage(Mutex::new(Vec::<String>::new()))
+        .manage(Mutex::new(0))
         .register_asynchronous_uri_scheme_protocol("stream", move |_app, request, responder| {
             match get_stream_response(request, &boundary_id) {
                 Ok(http_response) => responder.respond(http_response),

@@ -1,6 +1,13 @@
 <script lang="ts">
   import { TauriEvent, listen } from "@tauri-apps/api/event";
-  import { mediaList, activeIdx, setIdx, getName } from "../main";
+  import {
+    mediaList,
+    activeIdx,
+    setIdx,
+    getName,
+    setMedia,
+    setArr,
+  } from "../main";
 
   let items: string[] = [];
 
@@ -26,8 +33,8 @@
       }
     }
     if (newPaths.size > 0) {
-      mediaList.update((n) => n.concat([...newPaths] as any));
-      activeIdx.set(curLen);
+      setArr(items.concat([...newPaths] as any));
+      setIdx(curLen);
     }
   });
 </script>

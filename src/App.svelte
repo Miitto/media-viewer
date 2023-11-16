@@ -2,8 +2,11 @@
   import Title from "./lib/Title.svelte";
   import Tree from "./lib/Tree.svelte";
   import Media from "./lib/Media.svelte";
+  import { invoke } from "@tauri-apps/api/primitives";
 
   import resize from "./resize";
+
+  import { mediaList, activeIdx } from "./main";
 </script>
 
 <main>
@@ -38,7 +41,7 @@
     background-color: #2a2a2a;
     flex: 0 0 auto;
     width: min-content;
-    min-width: 50px;
+    min-width: var(--grabber-width);
     position: relative;
     height: 100%;
     white-space: nowrap;
@@ -51,9 +54,9 @@
   }
 
   :global(.grabber.right) {
-    width: 10px;
+    width: var(--grabber-width);
     height: 100%;
-    right: -5px;
+    right: 0px;
     cursor: col-resize;
     top: 0;
   }

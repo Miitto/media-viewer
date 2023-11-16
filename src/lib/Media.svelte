@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { activeIdx, mediaList, videoExt } from "../main";
+  import { activeIdx, mediaList, setActive, setIdx, videoExt } from "../main";
   import { convertFileSrc } from "@tauri-apps/api/primitives";
   import { Window } from "@tauri-apps/api/window";
   import { Plyr } from "svelte-plyr";
@@ -71,9 +71,9 @@
 
   async function goLeft() {
     if (active == 0) {
-      activeIdx.set(media.length - 1);
+      setIdx(media.length - 1);
     } else {
-      activeIdx.update((n) => n - 1);
+      setActive(active - 1);
     }
     if (!isVideo && (await Window.getCurrent().isFullscreen())) {
       if (image) {
@@ -84,9 +84,9 @@
 
   async function goRight() {
     if (active == media.length - 1) {
-      activeIdx.set(0);
+      setIdx(0);
     } else {
-      activeIdx.update((n) => n + 1);
+      setIdx(active + 1);
     }
     if (!isVideo && (await Window.getCurrent().isFullscreen())) {
       if (image) {

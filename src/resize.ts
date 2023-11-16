@@ -71,6 +71,14 @@ function resize(element: any, arg: string[]) {
 			if (grabber) {
 				element.appendChild(grabber)
 				grabber.addEventListener('mousedown', onMousedown)
+				grabber.addEventListener('dblclick', (e: any) => {
+					console.log(element.style.width)
+					if (parseInt(element.style.width) <= 15) {
+						element.style.width = "max-content"
+					} else {
+						element.style.width = window.getComputedStyle(element).getPropertyValue("min-width")
+					}
+				})
 			}
 		})
 		

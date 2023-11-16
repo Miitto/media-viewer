@@ -104,6 +104,9 @@
       box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 2;
       background-color: #2f2f2f;
+      p {
+        background-color: #2f2f2f;
+      }
       p:hover {
         background-color: #3f3f3f;
       }
