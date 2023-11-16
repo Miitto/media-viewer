@@ -45,6 +45,7 @@
     position: relative;
     height: 100%;
     white-space: nowrap;
+    overflow-y: auto;
   }
 
   :global(.grabber) {

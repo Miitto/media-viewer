@@ -45,7 +45,7 @@
             if (file.children != null) return;
 
             for (var ext of mediaExt) {
-              if (file.name?.endsWith(`.${ext}`)) {
+              if (file.name?.toLowerCase().endsWith(`.${ext}`)) {
                 fileList.push(file.path);
                 break;
               }

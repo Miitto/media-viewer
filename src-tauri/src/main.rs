@@ -42,7 +42,7 @@ fn main() {
             get_media, get_active, set_media, set_active
         ])
         .manage(Mutex::new(Vec::<String>::new()))
-        .manage(Mutex::new(0))
+        .manage(Mutex::new(0 as u32))
         .register_asynchronous_uri_scheme_protocol("stream", move |_app, request, responder| {
             match get_stream_response(request, &boundary_id) {
                 Ok(http_response) => responder.respond(http_response),

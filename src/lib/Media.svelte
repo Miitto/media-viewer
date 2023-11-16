@@ -1,5 +1,12 @@
 <script lang="ts">
-  import { activeIdx, mediaList, setActive, setIdx, videoExt } from "../main";
+  import {
+    activeIdx,
+    getMedia,
+    mediaList,
+    setActive,
+    setIdx,
+    videoExt,
+  } from "../main";
   import { convertFileSrc } from "@tauri-apps/api/primitives";
   import { Window } from "@tauri-apps/api/window";
   import { Plyr } from "svelte-plyr";
@@ -15,7 +22,10 @@
   var activeElement;
   var exten = "";
 
+  getMedia();
+
   updateMedia();
+  activeIdx.update((n) => n);
 
   mediaList.subscribe((value) => {
     media = value;
@@ -23,7 +33,6 @@
   });
 
   async function onKeyDown(e: KeyboardEvent, doc: Document) {
-    console.log(e.key);
     if (e.key === "ArrowLeft") {
       e.preventDefault();
       goLeft();
@@ -73,7 +82,7 @@
     if (active == 0) {
       setIdx(media.length - 1);
     } else {
-      setActive(active - 1);
+      setIdx(active - 1);
     }
     if (!isVideo && (await Window.getCurrent().isFullscreen())) {
       if (image) {
@@ -121,7 +130,6 @@
         <source src={activeVid} type={`video/${exten}`} />
       </video>
     </Plyr>
-    <br />
     <!-- svelte-ignore a11y-missing-attribute -->
     <img
       bind:this={image}
@@ -192,5 +200,6 @@
     padding: none;
     object-fit: contain;
     max-height: calc(100vh - 34px) !important;
+    grid-row: 1;
   }
 </style>

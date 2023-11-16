@@ -21,6 +21,14 @@
   max-height: 100% !important;
 }
 
+button[data-plyr="settings"] {
+  display: none;
+}
+
+input[data-plyr="volume"] {
+  max-width: 90px !important;
+}
+
 .noselect {
   -webkit-touch-callout: none;
   /* iOS Safari */

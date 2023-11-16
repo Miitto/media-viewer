@@ -1,7 +1,7 @@
 import "./styles.css";
 import App from "./App.svelte";
 import {get, writable} from "svelte/store"
-import { invoke } from "@tauri-apps/api/primitives";
+import { convertFileSrc, invoke } from "@tauri-apps/api/primitives";
 
 export const activeIdx = writable(0);
 export function setIdx(idx: any) {
@@ -22,6 +22,9 @@ export function setArr(arr: string[]) {
   arr.sort((a, b) => {
     a = getName(a)
     b = getName(b)
+    var a1 = parseInt(a)
+    var b1 = parseInt(b)
+    if (!Number.isNaN(a1) && !Number.isNaN(b1)) return (a1 - b1);
     for (var i = 0; i < a.length; i++) {
       for (var j = 0; j < b.length; j++) {
         var r = a.charCodeAt(i)! - b.charCodeAt(j)!
