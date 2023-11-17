@@ -2,9 +2,12 @@
   import {
     activeIdx,
     getMedia,
+    getMp4,
     mediaList,
     setActive,
+    setArr,
     setIdx,
+    setLoading,
     videoExt,
   } from "../main";
   import { convertFileSrc } from "@tauri-apps/api/primitives";
@@ -80,8 +83,24 @@
 
   async function goLeft() {
     if (active == 0) {
+      if (media[media.length - 1].toLowerCase().endsWith("avi")) {
+        document.body.style.cursor = "progress";
+        setLoading(active + 1);
+        media[media.length - 1] = await getMp4(media[media.length - 1]);
+        setLoading(-1);
+        document.body.style.cursor = "default";
+        setArr(media);
+      }
       setIdx(media.length - 1);
     } else {
+      if (media[active - 1].toLowerCase().endsWith("avi")) {
+        document.body.style.cursor = "progress";
+        setLoading(active + 1);
+        media[active - 1] = await getMp4(media[active - 1]);
+        setLoading(-1);
+        document.body.style.cursor = "default";
+        setArr(media);
+      }
       setIdx(active - 1);
     }
     if (!isVideo && (await Window.getCurrent().isFullscreen())) {
@@ -93,8 +112,24 @@
 
   async function goRight() {
     if (active == media.length - 1) {
+      if (media[0].toLowerCase().endsWith("avi")) {
+        document.body.style.cursor = "progress";
+        setLoading(active + 1);
+        media[0] = await getMp4(media[0]);
+        setLoading(-1);
+        document.body.style.cursor = "default";
+        setArr(media);
+      }
       setIdx(0);
     } else {
+      if (media[active + 1].toLowerCase().endsWith("avi")) {
+        document.body.style.cursor = "progress";
+        setLoading(active + 1);
+        media[active + 1] = await getMp4(media[active + 1]);
+        setLoading(-1);
+        document.body.style.cursor = "default";
+        setArr(media);
+      }
       setIdx(active + 1);
     }
     if (!isVideo && (await Window.getCurrent().isFullscreen())) {
@@ -123,11 +158,11 @@
         class="noselect"
         controls
         autoplay
-        preload="none"
         loop
         on:fullscreenchange={fullScreenChange}
       >
         <source src={activeVid} type={`video/${exten}`} />
+        Video Not Supported
       </video>
     </Plyr>
     <!-- svelte-ignore a11y-missing-attribute -->
@@ -160,6 +195,8 @@
     display: grid;
     align-items: center;
     grid-template-rows: 1fr;
+    margin-bottom: 1rem;
+    overflow: hidden;
   }
   p {
     position: absolute;

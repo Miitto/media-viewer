@@ -46,12 +46,19 @@
     height: 100%;
     white-space: nowrap;
     overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   :global(.grabber) {
     position: absolute;
     box-sizing: border-box;
     background: #353535;
+    z-index: 100;
   }
 
   :global(.grabber.right) {

@@ -1,7 +1,14 @@
 <script lang="ts">
   import { open } from "@tauri-apps/plugin-dialog";
   import { readDir } from "@tauri-apps/plugin-fs";
-  import { mediaList, setArr, mediaExt, imageExt, videoExt } from "../main";
+  import {
+    mediaList,
+    setArr,
+    mediaExt,
+    imageExt,
+    videoExt,
+    parseAvi,
+  } from "../main";
 
   async function openFile() {
     var files = await open({
@@ -53,6 +60,7 @@
           });
         })
         .then(() => {
+          //parseAvi(fileList as any);
           setArr(fileList);
         });
     });

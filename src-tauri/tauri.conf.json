@@ -10,8 +10,34 @@
     "productName": "Media Viewer",
     "version": "0.0.0"
   },
+  "plugins": {
+    "shell": {
+      "open": true,
+      "scope": [
+        {
+          "name": "bin/ffmpeg",
+          "sidecar": true,
+          "args": [
+            "-n",
+            "-i",
+            {
+              "validator": "\\S+"
+            },
+            "-c:v",
+            "h264",
+            {
+              "validator": "\\S+"
+            }
+          ]
+        }
+      ]
+    }
+  },
   "tauri": {
     "bundle": {
+      "externalBin": [
+        "bin/ffmpeg"
+      ],
       "active": true,
       "targets": "all",
       "identifier": "com.miitto.media-viewer",
